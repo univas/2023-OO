@@ -13,6 +13,7 @@ public class ContaCorrente {
 	public int numero;
 	public String agencia;
 	public String[] chave_pix;
+	private double juros_cheque = .2;
 	
 	public ContaCorrente(String titular, String cpf, String senha) {
 		this.titular = titular;
@@ -31,11 +32,25 @@ public class ContaCorrente {
 	}
 
 	public void depositar(double valor) {
+		if(this.saldo < 0) {
+			valor += this.saldo * (this.juros_cheque);
+			this.cheque_especial += (valor - (this.saldo*-1));
+		}
+		
 		this.saldo += valor;
 	}
 	
 	public void sacar(double valor) {
-		this.saldo -= valor;
+		// verificar se o saldo + cheque permite o saque
+		if(this.saldo + this.cheque_especial >= valor) {
+			if(this.saldo < valor) {
+				this.cheque_especial -= (valor - this.saldo);
+			}
+			
+			this.saldo -= valor;
+		}else {
+			System.out.println("Nao pode sacar");
+		}
 	}
 	
 	public void transferir(String agencia, int conta, double valor) {

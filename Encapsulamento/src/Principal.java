@@ -8,13 +8,21 @@ public class Principal {
 		
 		System.out.println(conta.getSaldo());
 		
-		conta.depositar(1000);
+		conta.depositar(100);
+		conta.cheque_especial = 100;
 		
 		System.out.println(conta.getSaldo());
 		
-		conta.depositar(1000000);
+		conta.sacar(200);
 		
 		System.out.println(conta.getSaldo());
+		System.out.println(conta.cheque_especial);
+		
+		conta.depositar(200);
+		
+		System.out.println();
+		System.out.println(conta.getSaldo());
+		System.out.println(conta.cheque_especial);
 	}
 
 }
