@@ -40,6 +40,31 @@ public class ContaCorrente {
 		this.saldo += valor;
 	}
 	
+	public double getLimitChequeEspecialTotal() {
+		if(this.saldo < 0) {
+			return this.cheque_especial + (-1 * this.saldo);
+		}else {
+			return this.cheque_especial;
+		}
+	}
+	
+	public double getLimiteChequeEspecialAtual() {
+		return this.cheque_especial;
+	}
+	public String getTitular() {
+		return this.titular + "[" + this.cpf + "]";
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String retorno = "Titular: "+this.getTitular() + "\n";
+		retorno += "Ag: " + this.agencia + " Cc: " + this.numero + "\n";
+		retorno+= "Saldo atual: " + this.getSaldo();
+		
+		return retorno;
+		
+	}
 	public void sacar(double valor) {
 		// verificar se o saldo + cheque permite o saque
 		if(this.saldo + this.cheque_especial >= valor) {
@@ -54,10 +79,10 @@ public class ContaCorrente {
 	}
 	
 	public void transferir(String agencia, int conta, double valor) {
-		
+		this.sacar(valor);
 	}
 	
 	public void transferirPix(String pix, double valor) {
-		
+		this.sacar(valor);
 	}
 }
