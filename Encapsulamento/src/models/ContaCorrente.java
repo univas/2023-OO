@@ -3,16 +3,16 @@ package models;
 import java.util.Random;
 
 public class ContaCorrente {
-	public String titular;
+	 String titular;
 	private double saldo;
-	public String cpf;
-	public String cartao;
-	public String senha;
-	public double cheque_especial;
-	public double limite_cartao;
-	public int numero;
-	public String agencia;
-	public String[] chave_pix;
+	 String cpf;
+	 String cartao;
+	 String senha;
+	 double cheque_especial;
+	 double limite_cartao;
+	 int numero;
+	 String agencia;
+	 String[] chave_pix;
 	private double juros_cheque = .2;
 	
 	public ContaCorrente(String titular, String cpf, String senha) {
