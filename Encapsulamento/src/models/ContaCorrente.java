@@ -1,10 +1,11 @@
 package models;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ContaCorrente {
 	 String titular;
-	private double saldo;
+	 double saldo;
 	 String cpf;
 	 String cartao;
 	 String senha;
@@ -13,7 +14,23 @@ public class ContaCorrente {
 	 int numero;
 	 String agencia;
 	 String[] chave_pix;
-	private double juros_cheque = .2;
+	 double juros_cheque = .2;
+	 static int cont = 0;
+	 ArrayList<String> extrato;
+	 
+	 HashMap<ContaCorrente.tiposTransferencia, Double> taxas;
+	 
+	 public static enum tiposTransferencia{
+		 PIX, TED, DOC
+	 }
+	 
+	 public String getExtrato() {
+		 return this.extrato.toString();
+	 }
+	 
+	 public int getNumero() {
+		 return this.numero;
+	 }
 	
 	public ContaCorrente(String titular, String cpf, String senha) {
 		this.titular = titular;
@@ -24,7 +41,18 @@ public class ContaCorrente {
 		this.limite_cartao = 0;
 		
 		this.agencia = "0001";
-		this.numero = (1000000 % new Random().nextInt()) + 1000;
+		this.numero = ++ContaCorrente.cont;
+		this.extrato = new ArrayList<String>();
+		
+		this.taxas = new HashMap<>();
+		
+		this.taxas.put(ContaCorrente.tiposTransferencia.PIX, 0.0);
+		this.taxas.put(ContaCorrente.tiposTransferencia.TED, 8.0);
+		this.taxas.put(ContaCorrente.tiposTransferencia.DOC, 5.0);
+	}
+	
+	public int getCont() {
+		return this.numero;
 	}
 	
 	public double getSaldo() {
@@ -38,6 +66,8 @@ public class ContaCorrente {
 		}
 		
 		this.saldo += valor;
+		
+		this.extrato.add("Depositou " + valor + " reais");
 	}
 	
 	public double getLimitChequeEspecialTotal() {
@@ -76,13 +106,22 @@ public class ContaCorrente {
 		}else {
 			System.out.println("Nao pode sacar");
 		}
+		
+		this.extrato.add("Sacou "+valor+" reais");
 	}
 	
-	public void transferir(String agencia, int conta, double valor) {
-		this.sacar(valor);
+	public void transferir(
+			String agencia, 
+			int conta, 
+			double valor, 
+			ContaCorrente.tiposTransferencia tipo) {
+		
+		double taxa = this.taxas.get(tipo);
+		
+		this.sacar(valor+taxa);
 	}
 	
 	public void transferirPix(String pix, double valor) {
-		this.sacar(valor);
+		this.sacar(valor + this.taxas.get(ContaCorrente.tiposTransferencia.PIX));
 	}
 }
