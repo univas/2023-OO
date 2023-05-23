@@ -1,14 +1,14 @@
+import java.text.ParseException;
+
 import models.Animal;
+import views.InterfacePrincipalView;
 
 public class Principal {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		// TODO Auto-generated method stub
-		Animal a = new Animal();
-		Animal b = a.clone();
-		
-		System.out.println(a);
-		System.out.println(b);
+		InterfacePrincipalView view = new InterfacePrincipalView();
+		view.executar();
 	}
 
 }
