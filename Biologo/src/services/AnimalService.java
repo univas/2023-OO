@@ -59,10 +59,42 @@ public class AnimalService {
 	}
 	// delete
 	public void delete(String id) {
+		Animal animalASerExcluido = null;
 		for(Animal a : AnimalService.dados) {
 			if(a.getId().equals(id)) {
-				AnimalService.dados.remove(a);
+				animalASerExcluido = a;
 			}
 		}
+		
+		if(animalASerExcluido != null) {
+			AnimalService.dados.remove(animalASerExcluido);
+		}
+	}
+	
+	// Conta quantos registros foram inseridos
+	public int count() {
+		return AnimalService.dados.size();
+	}
+	
+	// Obtem os animais com pelos
+	public ArrayList<Animal> getComPelos(){
+		ArrayList<Animal> lista = new ArrayList<Animal>();
+		for(Animal a : AnimalService.dados) {
+			if(a.isPelo()) {
+				lista.add(a.clone());
+			}
+		}
+		return lista;
+	}
+	
+	// Obtem os animais com penas
+	public ArrayList<Animal> getComPenas(){
+		ArrayList<Animal> lista = new ArrayList<Animal>();
+		for(Animal a : AnimalService.dados) {
+			if(a.isPenas()) {
+				lista.add(a.clone());
+			}
+		}
+		return lista;
 	}
 }
