@@ -32,6 +32,8 @@ public class Principal {
 		lista.add(m);
 		
 		System.out.println(lista);
+		
+		System.out.println(Automovel.getCont());
 	}
 
 }

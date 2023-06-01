@@ -5,6 +5,16 @@ public class Automovel {
 	protected int velocidade;
 	protected String marca;
 	
+	private static int cont = 0;
+	
+	public static int getCont() {
+		return Automovel.cont;
+	}
+	
+	public Automovel () {
+		Automovel.cont++;
+	}
+	
 	public double getPeso() {
 		return peso;
 	}
