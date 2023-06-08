@@ -20,6 +20,11 @@ public class Jogador {
 		this.barcos.add(new Veleiro());
 	}
 	
+	public int diminuirVida(int valor) {
+		this.vida -= valor;
+		return this.vida;
+	}
+	
 	public ArrayList<Embarcacao> getBarcos(){
 		return this.barcos;
 	}
